@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Feedback Portal</title>
+    <meta name="description" content="Submit your feedback quickly and securely. Your inputs help us design better learning experiences.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="light-mode">
+    <div class="background-decor">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+    </div>
+
+    <main class="main-container">
+        <!-- Theme Toggle & Header -->
+        <header class="app-header">
+            <div class="logo-area">
+                <span class="logo-icon">🎓</span>
+                <span class="logo-text">FeedbackHub</span>
+            </div>
+            <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle Theme">
+                <span class="toggle-icon sun-icon">☀️</span>
+                <span class="toggle-icon moon-icon">🌙</span>
+            </button>
+        </header>
+
+        <!-- Feedback Card -->
+        <section class="feedback-card" id="feedbackFormCard">
+            <div class="card-header">
+                <h1>Share Your Experience</h1>
+                <p>Your honest feedback helps us improve and serve you better. It only takes a minute!</p>
+            </div>
+
+            <form id="studentFeedbackForm" class="feedback-form" novalidate>
+                <!-- Name Field -->
+                <div class="form-group">
+                    <label for="name">
+                        <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        Full Name
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="text" id="name" name="name" placeholder="John Doe" required autocomplete="name">
+                        <span class="validation-status"></span>
+                    </div>
+                    <span class="error-msg" id="nameError">Name is required.</span>
+                </div>
+
+                <!-- Email Field -->
+                <div class="form-group">
+                    <label for="email">
+                        <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        Email Address
+                    </label>
+                    <div class="input-wrapper">
+                        <input type="email" id="email" name="email" placeholder="john@example.com" required autocomplete="email">
+                        <span class="validation-status"></span>
+                    </div>
+                    <span class="error-msg" id="emailError">Please enter a valid email address.</span>
+                </div>
+
+                <!-- Rating Field -->
+                <div class="form-group">
+                    <label>
+                        <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        Overall Rating
+                    </label>
+                    <div class="rating-container" id="ratingContainer">
+                        <button type="button" class="star" data-value="1" aria-label="1 Star">★</button>
+                        <button type="button" class="star" data-value="2" aria-label="2 Stars">★</button>
+                        <button type="button" class="star" data-value="3" aria-label="3 Stars">★</button>
+                        <button type="button" class="star" data-value="4" aria-label="4 Stars">★</button>
+                        <button type="button" class="star" data-value="5" aria-label="5 Stars">★</button>
+                    </div>
+                    <input type="hidden" name="rating" id="ratingInput" value="" required>
+                    <span class="error-msg" id="ratingError">Please select a rating of at least 1 star.</span>
+                </div>
+
+                <!-- Experience Field -->
+                <div class="form-group">
+                    <label for="experience">
+                        <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        Your Feedback / Experience
+                    </label>
+                    <div class="input-wrapper">
+                        <textarea id="experience" name="experience" rows="4" placeholder="What did you enjoy? What could we improve?" required></textarea>
+                    </div>
+                    <span class="error-msg" id="experienceError">Your feedback cannot be empty.</span>
+                </div>
+
+                <!-- Action Button -->
+                <button type="submit" id="submitBtn" class="submit-btn">
+                    <span class="btn-text">Submit Feedback</span>
+                    <span class="spinner hidden"></span>
+                </button>
+            </form>
+        </section>
+
+        <!-- Admin Access Link Footer -->
+        <footer class="app-footer">
+            <a href="/admin" class="admin-link">🛡️ Access Admin Portal</a>
+        </footer>
+    </main>
+
+    <!-- Success Modal Popup -->
+    <div class="modal-overlay hidden" id="successModal">
+        <div class="success-modal">
+            <div class="success-icon-wrapper">
+                <div class="success-checkmark">
+                    <div class="check-icon">
+                        <span class="icon-line line-tip"></span>
+                        <span class="icon-line line-long"></span>
+                        <div class="icon-circle"></div>
+                        <div class="icon-fix"></div>
+                    </div>
+                </div>
+            </div>
+            <h2>Thank You!</h2>
+            <p>Your feedback was submitted successfully. The team has been instantly notified via Telegram!</p>
+            <button id="closeModalBtn" class="modal-btn">Dismiss</button>
+        </div>
+    </div>
+
+    <!-- Script Resource -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

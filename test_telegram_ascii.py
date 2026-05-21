@@ -1,7 +1,7 @@
 import requests
 
-BOT_TOKEN = "8933136289:AAGhHf4L2iMnoqlGjkt4MnvSzZEO9uza-Jw"
-CHAT_ID = "1859975610"
+BOT_TOKEN = TELEGRAM_BOT_TOKEN
+CHAT_ID = TELEGRAM_CHAT_ID
 
 def test_telegram():
     print("Testing Telegram Integration...")

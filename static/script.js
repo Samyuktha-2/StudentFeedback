@@ -394,8 +394,8 @@ document.addEventListener("DOMContentLoaded", () => {
     function formatDBDate(dateStr) {
         if (!dateStr) return "";
         try {
-            // Adjust sqlite local timestamp
-            const t = dateStr.replace(" ", "T");
+            // Adjust sqlite UTC timestamp and append 'Z' for UTC timezone parsing
+            const t = dateStr.replace(" ", "T") + "Z";
             const d = new Date(t);
             if (isNaN(d.getTime())) {
                 return dateStr;

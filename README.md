@@ -196,3 +196,6 @@ gunicorn app:app --bind 0.0.0.0:8080
 * **Inputs Escaping**: The feedback input fields are escaped via Python's `html.escape` helper before transmission to Telegram, eliminating injection vulnerabilities or layout breakage.
 * **Prepared SQL Queries**: Database inserts and search operations utilize parameterized query markers (`?`), safeguarding the database from SQL Injection (SQLi) attacks.
 * **Session Management**: Session authentication tokens are kept secure using cryptographically-signed session cookies powered by Flask's `secret_key`.
+
+##Feedback app link
+https://student-feedback-289h.onrender.com

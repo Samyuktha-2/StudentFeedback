@@ -1,7 +1,12 @@
+import os
 import requests
+from dotenv import load_dotenv
 
-BOT_TOKEN = TELEGRAM_BOT_TOKEN
-CHAT_ID = TELEGRAM_CHAT_ID
+# Load environment variables
+load_dotenv()
+
+BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
 def test_telegram():
     print("Testing Telegram Integration...")
